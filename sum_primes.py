@@ -5,9 +5,10 @@ if __name__=='__main__':
     sc = SparkContext(conf=conf)
     
     primes_rdd = sc.textFile('datos/prime_nums.text')
-    primes_map = primes_rdd.flatMap(lambda line: line.split(' '))
-    print(type(primes_map))
-    #primes = primes_rdd.flatMap(lambda line: )
-    
-    for number in primes_map:
-        print(number)
+    primes_map = primes_rdd.flatMap(lambda line: line.split('\t'))
+
+    primes_map = primes_map.map(lambda line: int(line))
+
+    print(primes_map.take(30))
+    sum = primes_map.reduce(lambda x, y: x+y)
+    print(f'La suma es: {sum}')

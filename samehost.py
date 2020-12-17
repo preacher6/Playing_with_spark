@@ -1,7 +1,7 @@
 from pyspark import SparkConf, SparkContext
 
 def is_not_header(line: str):
-    return not (line.startswith("host") and "bytes" in line)
+    return not line.startswith("host")
 
 if __name__ == '__main__':
     conf = SparkConf().setAppName('logs').setMaster('local[1]')
